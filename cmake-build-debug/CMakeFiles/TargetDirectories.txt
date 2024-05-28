@@ -1,0 +1,3 @@
+/home/deividi/Área de Trabalho/T3-Deividi-Lab-II/cmake-build-debug/CMakeFiles/T3_Deividi_Lab_II.dir
+/home/deividi/Área de Trabalho/T3-Deividi-Lab-II/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/deividi/Área de Trabalho/T3-Deividi-Lab-II/cmake-build-debug/CMakeFiles/rebuild_cache.dir
