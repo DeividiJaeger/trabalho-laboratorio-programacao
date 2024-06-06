@@ -6,4 +6,6 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(T3_Deividi_Lab_II
-        main.c)
+        main.c
+        telag.c
+        telag_exemplo.c)
