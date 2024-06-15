@@ -1,4 +1,3 @@
-# t3-lab-II-sistemas-de-informa-o
-# t3-lab-II-sistemas-de-informa-o
-# t3-lab-II-sistemas-de-informa-o
-# t3-lab-II-sistemas-de-informa-o
+#Trabalho de sistemas de informção
+Jogo feito em C utilizando árvore binária (estrutura de dados).
+- É um jogo feito em C com Allegro.
