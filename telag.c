@@ -103,7 +103,7 @@ void tela_atualiza(void)
   al_flip_display();
   tempo_ultima_tela = tela_relogio();
 
-  // limpa todo o canvas em memória, para desenhar a próxima tela
+  // limpatodo o canvas em memória, para desenhar a próxima tela
   al_clear_to_color(cores[preto]);
 }
 

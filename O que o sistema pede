@@ -26,12 +26,23 @@
  *  -> Matar as palavras <-
  *  -> O jogo fica cada vez mais rápido <-
  * ------------------------------------------------------------------
+
  * SORTEIO DE PALAVRAS <-
+ -> Fazer um vetor inicial que tenha silabas (a,b,c,o,xu,par,lar,ter etcc)
+ -> Função que vai calcular um incidice desse vetor para concatenar em uma palavra entre 1 e 5 sílabas.
+
+
+
+
  *  -> lista de sílabas
  *  -> Cria uma nova palavra e insere essa palavra
  *  -> Usar a função STRCMP para sortear criar ela -> e então ser inserida na árvore.
  * ------------------------------------------------------------------
  * DESENHA ÁRVORE <-
+ Função recursiva para calulcar o espaço necessário para colocar o filho na arvore com um retorno de quanto px por
+ largura e tal,para assim saber em qual posição cada (cada nó pergunta pro seu filho de acordo para saber onde esse nó
+ vai ficar na tela)  int larguraTela(arvore *a, int posição inicial);
+
  *  -> Desenha o primeiro nível da árvore e então seus dois filhos
  *  -> Em que cordenadas vai ser impressa cada filho? <-
  *  -> Função que diz o tamanho de árvore e seu numero de caractéres e seu tamanho de largura do nó da sub árvore
