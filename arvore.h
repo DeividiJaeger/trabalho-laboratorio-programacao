@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 typedef struct no {
-    int dado;
+    char* dado;
     short altura;
     struct no* esquerda;
     struct no* direita;
@@ -14,20 +14,20 @@ typedef struct {
     No* raiz;
 } Arvore;
 
-No* novoNo(int valor);
+No* novoNo(const char* dado);  // Mudança no tipo do parâmetro para char*
 short maiorSubArvore(short a, short b);
 short alturaDoNo(No* no);
 
-//Fator de balanceamento
+// Fator de balanceamento
 short fatorDeBalanceamento(No* no);
 No* rotacaoEsquerda(No* y);
 No* rotacaoDireita(No* x);
 //---------------------------
 
-bool contemNaArvore(No* no, int valor);
-void inserirEsquerda(No* no, int valor);
-void inserirDireita(No* no, int valor);
-void inserirNaArvore(int valor, Arvore* arvore);
+bool contemNaArvore(No* no, const char* valor);  // Mudança no tipo do parâmetro para char*
+void inserirEsquerda(No* no, const char* valor);  // Mudança no tipo do parâmetro para char*
+void inserirDireita(No* no, const char* valor);  // Mudança no tipo do parâmetro para char*
+void inserirNaArvore(const char* valor, Arvore* arvore);  // Mudança no tipo do parâmetro para char*
 void imprimirArvore(No* raiz);
 
 #endif
