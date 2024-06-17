@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
+#include <unistd.h>
 #include "arvore.h"
 
 // Função para novo no ---------------
@@ -18,7 +20,7 @@ No* novoNo(char* dado) {
     return novo;
 }
 
-// --- FATOR DE BALANCEAMENTO --------
+// --- FATOR DE BALANCEAMENTO (Será mudado)--------
 short maiorSubArvore(short a, short b) {
     return (a > b) ? a : b;
 }
@@ -64,9 +66,7 @@ No* rotacaoDireita(No *r) {
 }
 // -----------------------------------
 
-//Funções de inserção ----------------
-
-//Esse função precisa ser mudada
+//Funções de inserção na árvore----------------
 bool contemNaArvore(No* no, const char* valor) {
     if (no == NULL) {
         return false;
@@ -81,8 +81,6 @@ bool contemNaArvore(No* no, const char* valor) {
         }
     }
 }
-
-
 void inserirEsquerda(No *no, const char *valor) {
     int cmp = strcmp(valor, no->dado);
 
@@ -102,7 +100,6 @@ void inserirEsquerda(No *no, const char *valor) {
         }
     }
 }
-
 void inserirDireita(No *no, const char *valor) {
     int cmp = strcmp(valor, no->dado);
 
@@ -122,7 +119,6 @@ void inserirDireita(No *no, const char *valor) {
         }
     }
 }
-
 void inserirNaArvore(const char *valor, Arvore *arvore) {
     if (arvore->raiz == NULL) {
         arvore->raiz = novoNo(valor);
@@ -139,7 +135,6 @@ void inserirNaArvore(const char *valor, Arvore *arvore) {
         }
     }
 }
-
 void imprimirArvore(No *raiz) {
     if (raiz == NULL) return;
 
@@ -148,4 +143,62 @@ void imprimirArvore(No *raiz) {
     imprimirArvore(raiz->direita);
 }
 
-//Funções para geração de palavras aleatórias
+//Funções para geração de palavras aleatórias------------
+const char* sequencia [] = {
+        "ba", "be", "bi", "bo", "bu",
+        "ca", "ce", "ci", "co", "cu",
+        "da", "de", "di", "do", "du",
+        "fa", "fe", "fi", "fo", "fu",
+        "ga", "ge", "gi", "go", "gu",
+        "ha", "he", "hi", "ho", "hu",
+        "ja", "je", "ji", "jo", "ju",
+        "ka", "ke", "ki", "ko", "ku",
+        "la", "le", "li", "lo", "lu",
+        "ma", "me", "mi", "mo", "mu",
+        "na", "ne", "ni", "no", "nu",
+        "pa", "pe", "pi", "po", "pu",
+        "ra", "re", "ri", "ro", "ru",
+        "sa", "se", "si", "so", "su",
+        "ta", "te", "ti", "to", "tu",
+        "va", "ve", "vi", "vo", "vu",
+        "xa", "xe", "xi", "xo", "xu",
+        "za", "ze", "zi", "zo", "zu"
+};
+const int numSequencias = sizeof(sequencia) / sizeof(sequencia[0]);
+int intAleatorio(int min, int max)
+{
+    return min + rand() % (max - min + 1);
+}
+// Função para gerar letra aleatória usando as sequencias
+char geraLetraAleatoria()
+{
+    int indice = intAleatorio(2, numSequencias - 1);
+    int posicao = intAleatorio(0, 1);
+    return sequencia[indice][posicao];
+}
+//Função para gerar a palavra aleatoria
+void gerarPalavraAleatoria(char* palavra, int tamMaximo)
+{
+    int tamanho = intAleatorio(2, tamMaximo);
+    for(int i = 0; i < tamanho; i++)
+    {
+        palavra[i] = geraLetraAleatoria();
+    }
+    palavra[tamanho] = '\0';
+}
+//Fução que gera as palavras de forma pausada
+void gerarPalavraPausada()
+{
+    while(1) {
+        char palavra[20];
+        gerarPalavraAleatoria(palavra, 10);
+        sleep(3);
+    }
+}
+/*
+ * Função que incializa o tempo para poder ser chamado
+ * a função de gerar a palavra pausadamente;
+*/
+void inicializaTime() {
+    srand(time(NULL));
+}

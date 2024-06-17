@@ -30,4 +30,8 @@ void inserirDireita(No* no, const char* valor);  // Mudança no tipo do parâmet
 void inserirNaArvore(const char* valor, Arvore* arvore);  // Mudança no tipo do parâmetro para char*
 void imprimirArvore(No* raiz);
 
+// Função para gerar as palavras pausadas aleatoriamente ---------------------
+void gerarPalavraPausada();
+void inicializaTime();
+
 #endif
