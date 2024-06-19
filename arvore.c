@@ -66,83 +66,6 @@ No* rotacaoDireita(No *r) {
 }
 // -----------------------------------
 
-//Funções de inserção na árvore----------------
-bool contemNaArvore(No* no, const char* valor) {
-    if (no == NULL) {
-        return false;
-    } else {
-        int cmp = strcmp(valor, no->dado);
-        if (cmp == 0) {
-            return true;
-        } else if (cmp < 0) {
-            return contemNaArvore(no->esquerda, valor);
-        } else {
-            return contemNaArvore(no->direita, valor);
-        }
-    }
-}
-void inserirEsquerda(No *no, const char *valor) {
-    int cmp = strcmp(valor, no->dado);
-
-    if (cmp < 0) {
-        if (no->esquerda == NULL) {
-            No *novo = novoNo(valor);
-            no->esquerda = novo;
-        } else {
-            inserirEsquerda(no->esquerda, valor);
-        }
-    } else {
-        if (no->direita == NULL) {
-            No *novo = novoNo(valor);
-            no->direita = novo;
-        } else {
-            inserirDireita(no->direita, valor);
-        }
-    }
-}
-void inserirDireita(No *no, const char *valor) {
-    int cmp = strcmp(valor, no->dado);
-
-    if (cmp > 0) {
-        if (no->direita == NULL) {
-            No *novo = novoNo(valor);
-            no->direita = novo;
-        } else {
-            inserirDireita(no->direita, valor);
-        }
-    } else {
-        if (no->esquerda == NULL) {
-            No *novo = novoNo(valor);
-            no->esquerda = novo;
-        } else {
-            inserirEsquerda(no->esquerda, valor);
-        }
-    }
-}
-void inserirNaArvore(const char *valor, Arvore *arvore) {
-    if (arvore->raiz == NULL) {
-        arvore->raiz = novoNo(valor);
-    } else {
-        if (contemNaArvore(arvore->raiz, valor)) {
-            printf("Erro: A palavra '%s' já foi inserida, insira uma palavra diferente.\n", valor);
-            return;
-        }
-        int cmp = strcmp(valor, arvore->raiz->dado);
-        if (cmp < 0) {
-            inserirEsquerda(arvore->raiz, valor);
-        } else {
-            inserirDireita(arvore->raiz, valor);
-        }
-    }
-}
-void imprimirArvore(No *raiz) {
-    if (raiz == NULL) return;
-
-    printf("%d -> ", raiz->dado);
-    imprimirArvore(raiz->esquerda);
-    imprimirArvore(raiz->direita);
-}
-
 //Funções para geração de palavras aleatórias------------
 const char* sequencia [] = {
         "ba", "be", "bi", "bo", "bu",
@@ -169,32 +92,25 @@ int intAleatorio(int min, int max)
 {
     return min + rand() % (max - min + 1);
 }
-// Função para gerar letra aleatória usando as sequencias
-char geraLetraAleatoria()
-{
-    int indice = intAleatorio(2, numSequencias - 1);
-    int posicao = intAleatorio(0, 1);
-    return sequencia[indice][posicao];
-}
-//Função para gerar a palavra aleatoria
-void gerarPalavraAleatoria(char* palavra, int tamMaximo)
-{
+
+//Função para gerar a palavra aleatoria e retorna essa palavra gerada
+// Função para gerar a palavra aleatoria e retorna essa palavra gerada
+char* gerarPalavraAleatoria(int tamMaximo) {
     int tamanho = intAleatorio(2, tamMaximo);
-    for(int i = 0; i < tamanho; i++)
-    {
-        palavra[i] = geraLetraAleatoria();
+    char* palavra = malloc((tamanho + 1) * sizeof(char));  // Aloca memória para a palavra
+    if (!palavra) {
+        printf("Erro ao alocar memória para a palavra\n");
+        exit(1);
+    }
+    for (int i = 0; i < tamanho; i += 2) {
+        int indice = intAleatorio(0, numSequencias - 1);
+        strcat(palavra, sequencia[indice]);
     }
     palavra[tamanho] = '\0';
+    return palavra;
 }
-//Fução que gera as palavras de forma pausada
-void gerarPalavraPausada()
-{
-    while(1) {
-        char palavra[20];
-        gerarPalavraAleatoria(palavra, 10);
-        sleep(3);
-    }
-}
+
+
 /*
  * Função que incializa o tempo para poder ser chamado
  * a função de gerar a palavra pausadamente;
@@ -202,3 +118,125 @@ void gerarPalavraPausada()
 void inicializaTime() {
     srand(time(NULL));
 }
+
+//Funções de inserção na árvore----------------
+bool contemNaArvore(No* no, char* valor) {
+    if (no == NULL) {
+        return false;
+    } else {
+        int cmp = strcmp(valor, no->dado);
+        if (cmp == 0) {
+            return true;
+        } else if (cmp < 0) {
+            return contemNaArvore(no->esquerda, valor);
+        } else {
+            return contemNaArvore(no->direita, valor);
+        }
+    }
+}
+void inserirEsquerda(No *no, char *valor) {
+    int cmp = strcmp(valor, no->dado);
+
+    if (cmp < 0) {
+        if (no->esquerda == NULL) {
+            No *novo = novoNo(valor);
+            no->esquerda = novo;
+        } else {
+            inserirEsquerda(no->esquerda, valor);
+        }
+    } else {
+        if (no->direita == NULL) {
+            No *novo = novoNo(valor);
+            no->direita = novo;
+        } else {
+            inserirDireita(no->direita, valor);
+        }
+    }
+}
+void inserirDireita(No *no, char *valor) {
+    int cmp = strcmp(valor, no->dado);
+
+    if (cmp > 0) {
+        if (no->direita == NULL) {
+            No *novo = novoNo(valor);
+            no->direita = novo;
+        } else {
+            inserirDireita(no->direita, valor);
+        }
+    } else {
+        if (no->esquerda == NULL) {
+            No *novo = novoNo(valor);
+            no->esquerda = novo;
+        } else {
+            inserirEsquerda(no->esquerda, valor);
+        }
+    }
+}
+void inserirNaArvore(char *valor, Arvore *arvore) {
+    if (arvore->raiz == NULL) {
+        arvore->raiz = novoNo(valor);
+    } else {
+        if (contemNaArvore(arvore->raiz, valor)) {
+            printf("Erro: A palavra '%s' já foi inserida, insira uma palavra diferente.\n", valor);
+            return;
+        }
+        int cmp = strcmp(valor, arvore->raiz->dado);
+        if (cmp < 0) {
+            inserirEsquerda(arvore->raiz, valor);
+        } else {
+            inserirDireita(arvore->raiz, valor);
+        }
+    }
+}
+void imprimirArvore(No *raiz) {
+    if (raiz == NULL) return;
+
+    printf("%s -> ", raiz->dado);
+    imprimirArvore(raiz->esquerda);
+    imprimirArvore(raiz->direita);
+}
+
+// Função de remoção da arvore binaria
+No* encontrarMinimo(No *no) {
+    if(no == NULL) {
+        return NULL;
+    }
+    while (no->esquerda != NULL) {
+        no = no->esquerda;
+    }
+    return no;
+}
+No* removerNo(No* no, char* valor) {
+    if(no == NULL) return NULL;
+    int cmp = strcmp(valor, no->dado);
+
+    if(cmp < 0) {
+        no->esquerda = removerNo(no->esquerda, valor);
+    }else if(cmp > 0) {
+        no->direita = removerNo(no->direita, valor);
+    }else { // Caso 1 e 2 são no sem filho ou apenas com um filho
+        if(no->esquerda == NULL) {
+            No* temporario = no->direita;
+            free(no->dado);
+            free(no);
+            return temporario;
+        }else if(no->direita == NULL){
+            No* temporario = no->esquerda;
+            free(no->dado);
+            free(no);
+        }
+
+        //Terceiro caso 3º - No com dois filhos
+        //Encontra o no minimo da sub arvore direita
+        No* temporario = encontrarMinimo(no->direita);
+
+        free(no->dado);
+        no->dado = strdup(temporario->dado);
+        no->direita = removerNo(no->direita, temporario->dado);
+    }
+    return no;
+}
+void removerDaArvore(char* valor, Arvore* arvore) {
+    arvore->raiz = removerNo(arvore->raiz, valor);
+}
+

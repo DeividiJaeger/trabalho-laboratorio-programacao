@@ -14,7 +14,7 @@ typedef struct {
     No* raiz;
 } Arvore;
 
-No* novoNo(const char* dado);  // Mudança no tipo do parâmetro para char*
+No* novoNo(char* dado);
 short maiorSubArvore(short a, short b);
 short alturaDoNo(No* no);
 
@@ -22,16 +22,16 @@ short alturaDoNo(No* no);
 short fatorDeBalanceamento(No* no);
 No* rotacaoEsquerda(No* y);
 No* rotacaoDireita(No* x);
-//---------------------------
 
-bool contemNaArvore(No* no, const char* valor);  // Mudança no tipo do parâmetro para char*
-void inserirEsquerda(No* no, const char* valor);  // Mudança no tipo do parâmetro para char*
-void inserirDireita(No* no, const char* valor);  // Mudança no tipo do parâmetro para char*
-void inserirNaArvore(const char* valor, Arvore* arvore);  // Mudança no tipo do parâmetro para char*
+//----------FUNÇÕES DE INSERÇAO - IMPRESSAO E CONTEM NA ARVORE-----------------
+bool contemNaArvore(No* no, char* valor);
+void inserirEsquerda(No* no, char* valor);
+void inserirDireita(No* no, char* valor);
+void inserirNaArvore(char* valor, Arvore* arvore);
 void imprimirArvore(No* raiz);
 
 // Função para gerar as palavras pausadas aleatoriamente ---------------------
-void gerarPalavraPausada();
+char* gerarPalavraAleatoria(int tamMaximo);
 void inicializaTime();
 
 #endif
