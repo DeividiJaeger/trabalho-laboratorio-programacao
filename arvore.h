@@ -25,13 +25,19 @@ No* rotacaoDireita(No* x);
 
 //----------FUNÇÕES DE INSERÇAO - IMPRESSAO E CONTEM NA ARVORE-----------------
 bool contemNaArvore(No* no, char* valor);
-void inserirEsquerda(No* no, char* valor);
-void inserirDireita(No* no, char* valor);
 void inserirNaArvore(char* valor, Arvore* arvore);
 void imprimirArvore(No* raiz);
 
 // Função para gerar as palavras pausadas aleatoriamente ---------------------
 char* gerarPalavraAleatoria(int tamMaximo);
 void inicializaTime();
+
+//----------FUNÇÕES DE REMOÇÃO DE UM NÓ DA ARVORE -----------------
+No* encontrarMinimo(No *no);
+No* removerNo(No* no, char* valor);
+void removerDaArvore(char* valor, Arvore* arvore);
+
+
+
 
 #endif
