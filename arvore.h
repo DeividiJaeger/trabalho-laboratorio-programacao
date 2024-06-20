@@ -33,8 +33,6 @@ char* gerarPalavraAleatoria(int tamMaximo);
 void inicializaTime();
 
 //----------FUNÇÕES DE REMOÇÃO DE UM NÓ DA ARVORE -----------------
-No* encontrarMinimo(No *no);
-No* removerNo(No* no, char* valor);
 void removerDaArvore(char* valor, Arvore* arvore);
 
 

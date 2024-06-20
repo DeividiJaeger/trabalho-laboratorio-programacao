@@ -6,11 +6,23 @@
 #include <unistd.h>
 #include "arvore.h"
 
+// Prototipos das funcoes
+No* novoNo(char* dado);
+void inicializaTime();
+char* gerarPalavraAleatoria(int tamMaximo);
+void inserirEsquerda(No *no, char *valor);
+void inserirDireita(No *no, char *valor);
+void inserirNaArvore(char *valor, Arvore *arvore);
+void imprimirArvore(No *raiz);
+void removerDaArvore(char* valor, Arvore* arvore);
+bool contemNaArvore(No* no, char* valor);
+
+
 // Função para novo no ---------------
 No* novoNo(char* dado) {
     No *novo = malloc(sizeof(No));  // Aloca memória para um nó
     if (novo) {
-        novo->dado = dado;
+        novo->dado = strdup(dado);  // Copia a string para garantir a alocação correta
         novo->esquerda = NULL;
         novo->direita = NULL;
         novo->altura = 0;
@@ -21,49 +33,49 @@ No* novoNo(char* dado) {
 }
 
 // --- FATOR DE BALANCEAMENTO (Será mudado)--------
-short maiorSubArvore(short a, short b) {
-    return (a > b) ? a : b;
-}
-short alturaDoNo(No *no) {
-    return (no == NULL) ? -1 : no->altura;
-}
-short fatorDeBalanceamento(No *no) {
-    if (no) {
-        return (alturaDoNo(no->esquerda) - alturaDoNo(no->direita));
-    } else {
-        return 0;
-    }
-}
-No* rotacaoEsquerda(No *r) {
-    No *y, *f;
-
-    y = r->direita;
-    f = y->esquerda; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
-
-    y->esquerda = r;
-    r->direita = f;
-
-    // Recalcular a altura
-    r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
-    y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
-
-    return y;
-}
-No* rotacaoDireita(No *r) {
-    No *y, *f;
-
-    y = r->esquerda;
-    f = y->direita; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
-
-    y->direita = r;
-    r->esquerda = f;
-
-    // Recalcular a altura
-    r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
-    y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
-
-    return y;
-}
+// short maiorSubArvore(short a, short b) {
+//     return (a > b) ? a : b;
+// }
+// short alturaDoNo(No *no) {
+//     return (no == NULL) ? -1 : no->altura;
+// }
+// short fatorDeBalanceamento(No *no) {
+//     if (no) {
+//         return (alturaDoNo(no->esquerda) - alturaDoNo(no->direita));
+//     } else {
+//         return 0;
+//     }
+// }
+// No* rotacaoEsquerda(No *r) {
+//     No *y, *f;
+//
+//     y = r->direita;
+//     f = y->esquerda; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
+//
+//     y->esquerda = r;
+//     r->direita = f;
+//
+//     // Recalcular a altura
+//     r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
+//     y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
+//
+//     return y;
+// }
+// No* rotacaoDireita(No *r) {
+//     No *y, *f;
+//
+//     y = r->esquerda;
+//     f = y->direita; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
+//
+//     y->direita = r;
+//     r->esquerda = f;
+//
+//     // Recalcular a altura
+//     r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
+//     y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
+//
+//     return y;
+// }
 // -----------------------------------
 
 //Funções para geração de palavras aleatórias------------
@@ -93,7 +105,6 @@ int intAleatorio(int min, int max)
     return min + rand() % (max - min + 1);
 }
 
-//Função para gerar a palavra aleatoria e retorna essa palavra gerada
 // Função para gerar a palavra aleatoria e retorna essa palavra gerada
 char* gerarPalavraAleatoria(int tamMaximo) {
     int tamanho = intAleatorio(2, tamMaximo);
@@ -102,6 +113,7 @@ char* gerarPalavraAleatoria(int tamMaximo) {
         printf("Erro ao alocar memória para a palavra\n");
         exit(1);
     }
+    palavra[0] = '\0';  // Inicializa a string com o terminador nulo
     for (int i = 0; i < tamanho; i += 2) {
         int indice = intAleatorio(0, numSequencias - 1);
         strcat(palavra, sequencia[indice]);
@@ -224,6 +236,7 @@ No* removerNo(No* no, char* valor) {
             No* temporario = no->esquerda;
             free(no->dado);
             free(no);
+            return temporario;
         }
 
         //Terceiro caso 3º - No com dois filhos
@@ -239,4 +252,3 @@ No* removerNo(No* no, char* valor) {
 void removerDaArvore(char* valor, Arvore* arvore) {
     arvore->raiz = removerNo(arvore->raiz, valor);
 }
-
