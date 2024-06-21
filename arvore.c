@@ -16,7 +16,16 @@ void inserirNaArvore(char *valor, Arvore *arvore);
 void imprimirArvore(No *raiz);
 void removerDaArvore(char* valor, Arvore* arvore);
 bool contemNaArvore(No* no, char* valor);
+short maiorSubArvore(short a, short b);
+short alturaDoNo(No* no);
+short fatorDeBalanceamento(No *no);
+bool verificarBalanceamento(No *no);
 
+/***********************************************************/
+
+//Essas funções precisaram ser mudadas
+No* rotacaoEsquerda(No *r);
+No* rotacaoDireita(No *r);
 
 // Função para novo no ---------------
 No* novoNo(char* dado) {
@@ -32,52 +41,84 @@ No* novoNo(char* dado) {
     return novo;
 }
 
-// --- FATOR DE BALANCEAMENTO (Será mudado)--------
-// short maiorSubArvore(short a, short b) {
-//     return (a > b) ? a : b;
-// }
-// short alturaDoNo(No *no) {
-//     return (no == NULL) ? -1 : no->altura;
-// }
-// short fatorDeBalanceamento(No *no) {
-//     if (no) {
-//         return (alturaDoNo(no->esquerda) - alturaDoNo(no->direita));
-//     } else {
-//         return 0;
-//     }
-// }
-// No* rotacaoEsquerda(No *r) {
-//     No *y, *f;
-//
-//     y = r->direita;
-//     f = y->esquerda; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
-//
-//     y->esquerda = r;
-//     r->direita = f;
-//
-//     // Recalcular a altura
-//     r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
-//     y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
-//
-//     return y;
-// }
-// No* rotacaoDireita(No *r) {
-//     No *y, *f;
-//
-//     y = r->esquerda;
-//     f = y->direita; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
-//
-//     y->direita = r;
-//     r->esquerda = f;
-//
-//     // Recalcular a altura
-//     r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
-//     y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
-//
-//     return y;
-// }
-// -----------------------------------
+// --- FATOR DE BALANCEAMENTO--------
+No* rotacaoEsquerda(No *r) {
+    No *y, *f;
 
+    y = r->direita;
+    f = y->esquerda; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
+
+    y->esquerda = r;
+    r->direita = f;
+
+    // Recalcular a altura
+    r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
+    y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
+
+    return y;
+}
+No* rotacaoDireita(No *r) {
+    No *y, *f;
+
+    y = r->esquerda;
+    f = y->direita; // Ponteiro auxiliar para armazenar o possível filho do R -> direita
+
+    y->direita = r;
+    r->esquerda = f;
+
+    // Recalcular a altura
+    r->altura = maiorSubArvore(alturaDoNo(r->esquerda), alturaDoNo(r->direita) + 1);
+    y->altura = maiorSubArvore(alturaDoNo(y->esquerda), alturaDoNo(y->direita) + 1);
+
+    return y;
+}
+bool arvoreEstaBalanceada(Arvore* arv, No* no) {
+    if(arv->raiz == NULL) {
+        return true;
+    }
+    short balanceamento = fatorDeBalanceamento(arv->raiz);
+
+    if(balanceamento < -1 || balanceamento > 1) {
+        return false;
+    }
+    //Recursao para verificar os filhos direitos e esquerdos
+    return arvoreEstaBalanceada(arv, no->esquerda) && arvoreEstaBalanceada(arv, no->direita);
+}
+short maiorSubArvore(short a, short b) {
+    return (a > b) ? a : b;
+}
+short alturaDoNo(No *no) {
+    if (no == NULL) return -1;
+    return 1 + maiorSubArvore(alturaDoNo(no->esquerda), alturaDoNo(no->direita));
+}
+short fatorDeBalanceamento(No *no) {
+    if (no == NULL) return 0;
+    return alturaDoNo(no->esquerda) - alturaDoNo(no->direita);
+}
+bool verificarBalanceamento(No *no) {
+    if (no == NULL) return true;
+
+    short fb = fatorDeBalanceamento(no);
+    if (abs(fb) > 1) return false;
+
+    return verificarBalanceamento(no->esquerda) && verificarBalanceamento(no->direita);
+}
+
+No* balancearNo(No* no) {
+    int fb = fatorDeBalanceamento(no);
+    if(fb > 1) {
+        if(fatorDeBalanceamento(no->esquerda) < 0) {
+            no->esquerda = rotacaoEsquerda(no->esquerda);
+        }
+        no = rotacaoDireita(no);
+    } else if(fb < -1) {
+        if(fatorDeBalanceamento(no->direita) > 0) {
+            no->direita = rotacaoDireita(no->direita);
+        }
+        no->direita = rotacaoDireita(no->direita);
+    }
+    return no;
+}
 //Funções para geração de palavras aleatórias------------
 const char* sequencia [] = {
         "ba", "be", "bi", "bo", "bu",
@@ -104,7 +145,6 @@ int intAleatorio(int min, int max)
 {
     return min + rand() % (max - min + 1);
 }
-
 // Função para gerar a palavra aleatoria e retorna essa palavra gerada
 char* gerarPalavraAleatoria(int tamMaximo) {
     int tamanho = intAleatorio(2, tamMaximo);
@@ -121,8 +161,6 @@ char* gerarPalavraAleatoria(int tamMaximo) {
     palavra[tamanho] = '\0';
     return palavra;
 }
-
-
 /*
  * Função que incializa o tempo para poder ser chamado
  * a função de gerar a palavra pausadamente;
@@ -252,3 +290,5 @@ No* removerNo(No* no, char* valor) {
 void removerDaArvore(char* valor, Arvore* arvore) {
     arvore->raiz = removerNo(arvore->raiz, valor);
 }
+
+// Funções de balanceamento da minha árvore

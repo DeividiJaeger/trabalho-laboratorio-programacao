@@ -35,6 +35,9 @@ void inicializaTime();
 //----------FUNÇÕES DE REMOÇÃO DE UM NÓ DA ARVORE -----------------
 void removerDaArvore(char* valor, Arvore* arvore);
 
+// FUNÇÃO PARA VERIFICAR SE ARVORE ESTA BALANCEADA PARA O JOGO --------------
+short fatorDeBalanceamento(No *no);
+bool verificarBalanceamento(No *no);
 
 
 

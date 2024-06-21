@@ -6,8 +6,6 @@
 #include "unistd.h"
 
 int main() {
-    Arvore arv;
-    arv.raiz = NULL;
     inicializaTime();
 
     char* palavraParaRemover = malloc(256 * sizeof(char));  // Aloca memória para a palavra a ser removida
@@ -16,25 +14,30 @@ int main() {
         exit(1);
     }
 
-    time_t startTime = time(NULL);
-    while (difftime(time(NULL), startTime) < 15) {
-        char* palavraGerada = gerarPalavraAleatoria(10);
-        inserirNaArvore(palavraGerada, &arv);
-        imprimirArvore(arv.raiz);
-        printf("\n");
-        sleep(2);
-        printf("Digite a palavra a ser removida: \n");
-        scanf("%255s", palavraParaRemover);  // Note que estamos usando o espaço de memória alocado
-        if(contemNaArvore(arv.raiz, palavraParaRemover)) {
-            removerDaArvore(palavraParaRemover, &arv);
-        } else {
-            printf("Palavra nao contem na arvore tente novamente\n");
-        }
+    Arvore arvore;
+    arvore.raiz = NULL;
+
+    // Inserir algumas palavras na árvore
+    inserirNaArvore("segogucora", &arvore);
+    inserirNaArvore("botusarili", &arvore);
+    inserirNaArvore("cip", &arvore);
+
+    // Verificar se a árvore está balanceada
+    if (verificarBalanceamento(arvore.raiz)) {
+        printf("A árvore está balanceada.\n");
+    } else {
+        printf("A árvore está desequilibrada.\n");
     }
 
-    printf("\n");
-    printf("Arvore fincou assim no final\n");
-    imprimirArvore(arv.raiz);
+    // Remover uma palavra da árvore
+    removerDaArvore("botusarili", &arvore);
+
+    // Verificar se a árvore está balanceada após a remoção
+    if (verificarBalanceamento(arvore.raiz)) {
+        printf("A árvore está balanceada após a remoção.\n");
+    } else {
+        printf("A árvore está desequilibrada após a remoção.\n");
+    }
 
     free(palavraParaRemover);  // Libera a memória alocada
     return 0;
