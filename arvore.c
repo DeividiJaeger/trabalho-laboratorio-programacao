@@ -7,25 +7,10 @@
 #include "arvore.h"
 
 // Prototipos das funcoes
-No* novoNo(char* dado);
-void inicializaTime();
-char* gerarPalavraAleatoria(int tamMaximo);
-void inserirEsquerda(No *no, char *valor);
 void inserirDireita(No *no, char *valor);
-void inserirNaArvore(char *valor, Arvore *arvore);
-void imprimirArvore(No *raiz);
-void removerDaArvore(char* valor, Arvore* arvore);
-bool contemNaArvore(No* no, char* valor);
 short maiorSubArvore(short a, short b);
 short alturaDoNo(No* no);
 short fatorDeBalanceamento(No *no);
-bool verificarBalanceamento(No *no);
-
-/***********************************************************/
-
-//Essas funções precisaram ser mudadas
-No* rotacaoEsquerda(No *r);
-No* rotacaoDireita(No *r);
 
 // Função para novo no ---------------
 No* novoNo(char* dado) {
@@ -291,4 +276,3 @@ void removerDaArvore(char* valor, Arvore* arvore) {
     arvore->raiz = removerNo(arvore->raiz, valor);
 }
 
-// Funções de balanceamento da minha árvore

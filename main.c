@@ -8,12 +8,6 @@
 int main() {
     inicializaTime();
 
-    char* palavraParaRemover = malloc(256 * sizeof(char));  // Aloca memória para a palavra a ser removida
-    if (!palavraParaRemover) {
-        printf("Erro ao alocar memória para palavraParaRemover\n");
-        exit(1);
-    }
-
     Arvore arvore;
     arvore.raiz = NULL;
 
@@ -39,6 +33,5 @@ int main() {
         printf("A árvore está desequilibrada após a remoção.\n");
     }
 
-    free(palavraParaRemover);  // Libera a memória alocada
     return 0;
 }
