@@ -10,4 +10,5 @@ add_executable(T3_Deividi_Lab_II
         telag.c
         telag_exemplo.c
         arvore.c
-        arvore.h)
+        arvore.h
+        mainAlternativa.c)

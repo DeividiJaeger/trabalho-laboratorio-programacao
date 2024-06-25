@@ -1,8 +1,5 @@
 # ninja log v6
-1	52	1718886985210964453	CMakeFiles/T3_Deividi_Lab_II.dir/main.c.o	77cc72d54e512ab4
-8	60	1718114065019362549	CMakeFiles/T3_Deividi_Lab_II.dir/telag_exemplo.c.o	e9557573c745c8a
-7	160	1718114065019362549	CMakeFiles/T3_Deividi_Lab_II.dir/telag.c.o	dea0f3a795cd7995
-2	78	1718886985210964453	CMakeFiles/T3_Deividi_Lab_II.dir/arvore.c.o	3055e1ea94c528e3
 8	66	1718933416780918114	CMakeFiles/T3_Deividi_Lab_II.dir/main.c.o	77cc72d54e512ab4
 9	69	1718933416780918114	CMakeFiles/T3_Deividi_Lab_II.dir/telag_exemplo.c.o	e9557573c745c8a
 8	162	1718933416780918114	CMakeFiles/T3_Deividi_Lab_II.dir/telag.c.o	dea0f3a795cd7995
+2	78	1718886985210964453	CMakeFiles/T3_Deividi_Lab_II.dir/arvore.c.o	3055e1ea94c528e3

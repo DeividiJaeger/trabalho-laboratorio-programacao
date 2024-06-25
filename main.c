@@ -5,6 +5,11 @@
 #include <time.h>
 #include "arvore.h"
 #include "unistd.h"
+/*
+ * Para compilar com essa main utiliza-se o comando:
+ * gcc -Wall -o jogo main.c telag.c arvore.c -lallegro_font -lallegro_color -lallegro_ttf -lallegro_primitives -lallegro
+ *
+*/
 
 // Definições da minha tela e desenho da arvore;
 #define LARGURA_TELA 800
