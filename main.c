@@ -76,7 +76,7 @@ int main() {
         // Desenha a frase no centro da parte inferior da tela
         tela_texto_esq(posicaoX, posicaoY, tamanhoTexto, COR_TEXTO, frase);
 
-        // Processa as teclas pressionadas
+        /* Preciso corrigir
         while (true) {
             char tecla = tela_tecla();
             if (tecla != '\0') {
@@ -109,6 +109,7 @@ int main() {
                 break; // Se não há tecla pressionada, sai do loop interno
             }
         }
+        */
 
         // Atualiza a tela
         tela_atualiza();
