@@ -83,6 +83,12 @@ void tela_texto_dir(float x, float y, int tam, int c, char t[]);
 #define rosa 7
 #define branco 8
 #define marrom 9
+// IDs das novas cores
+#define VERDE_FOLHA 12
+#define MARROM_FRACO 13
+#define MARROM_FORTE 14
+#define PRETO_FRACO 15
+
 
 // altera uma cor (cor entre 0 e 99, componentes entre 0 e 1)
 void tela_altera_cor(int cor,

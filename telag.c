@@ -46,6 +46,10 @@ static void tela_inicializa_cores(void)
   tela_altera_cor(rosa, 1, 0, 0.5, 1);
   tela_altera_cor(branco, 1, 1, 1, 1);
   tela_altera_cor(marrom, 0.58, 0.29, 0, 1);
+  tela_altera_cor(VERDE_FOLHA, 0.0156, 0.6117, 0.4588, 1);
+  tela_altera_cor(MARROM_FRACO, 0.545, 0.271, 0.075, 1);
+  tela_altera_cor(MARROM_FORTE, 0.545, 0.271, 0.075, 0.5);
+  tela_altera_cor(PRETO_FRACO, 0.0, 0.0, 0.0, 0.9); 
 }
 
 void tela_altera_cor(int cor,
